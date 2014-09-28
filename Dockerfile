@@ -1,4 +1,4 @@
-FROM lopter/raring-base:latest
+FROM ubuntu:14.04
 MAINTAINER Louis Opter <louis@dotcloud.com>
 
 RUN apt-get update && apt-get install -y python-cairo collectd libgcrypt11 python-virtualenv supervisor sudo build-essential python-dev openssh-server openssh-client && apt-get clean && rm -rf /var/cache/apt/archives/* /var/lib/apt/lists/*
@@ -25,5 +25,5 @@ RUN sudo -u graphite HOME=/opt/graphite PYTHONPATH=/opt/graphite/lib/ /bin/sh -c
 RUN sudo -u graphite HOME=/opt/graphite PYTHONPATH=/opt/graphite/lib/ /bin/sh -c "cd ~/webapp/graphite && ~/env/bin/python mkadmin.py"
 
 # sshd, gunicorn, collectd, carbon/plaintext, carbon/pickle, carbon/amqp
-EXPOSE 22 8080 25826/udp 2003 2004 7002
+EXPOSE 22 8080 25826/udp 
 CMD exec supervisord -n
